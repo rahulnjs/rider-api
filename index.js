@@ -23,8 +23,9 @@ DATABASE.connect().then((db) => {
     fastify.register(import('./api/rider.js'), { db });
 
 
-    DATABASE.connectGreyt().then((_db) => {
-        fastify.register(import('./api/greyt.js'), { _db });
+    DATABASE.connectRest().then((dbs) => {
+        fastify.register(import('./api/greyt.js'), { _db: dbs[1] });
+        fastify.register(import('./api/expense.js'), { _db: dbs[0] });
         fastify.listen({ port: 3099 }, function (err, address) {
             if (err) {
                 fastify.log.error(err);
