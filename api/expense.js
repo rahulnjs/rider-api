@@ -1,20 +1,20 @@
 async function routes(fastify, { _db: db }) {
 
-    fastify.get('/exp/:db/data', async function (req, res) {
+    fastify.get('/exp/:col/data', async function (req, res) {
         try {
-            const { db } = req.params;
-            const all = await db.collection(db).find({}).toArray();
+            const { col } = req.params;
+            const all = await db.collection(col).find({}).toArray();
             return res.send(all || []);
         } catch (err) {
             res.code(500).send({ error: 'Failed to fetch data', details: err.message });
         }
     });
 
-    fastify.put('/exp/:db/data', async function (req, res) {
+    fastify.put('/exp/:col/data', async function (req, res) {
         try {
-            const { db } = req.params;
+            const { col } = req.params;
             const { cycle, budget } = req.body;
-            const all = await db.collection(db).updateOne({ cycle }, { $set: { budget } }, { upsert: true });
+            const all = await db.collection(col).updateOne({ cycle }, { $set: { budget } }, { upsert: true });
             return res.send(all || []);
         } catch (err) {
             res.code(500).send({ error: 'Failed to fetch data', details: err.message });
