@@ -18,4 +18,13 @@ async function connectGreyt() {
     return db;
 }
 
-export default { connect, connectGreyt };
+async function connectExpense() {
+    const url = `mongodb+srv://root:${process.env.RIDERS_API_DB_PWD}@riders.hd4vtve.mongodb.net/admin?authSource=admin&replicaSet=atlas-7ub5o0-shard-0&w=majority&readPreference=primary&appname=riders&retryWrites=true&ssl=true`;
+    const client = new MongoClient(url);
+    await client.connect();
+    console.log('Connected successfully to expense server');
+    const db = client.db("expen");
+    return db;
+}
+
+export default { connect, connectGreyt, connectExpense };
