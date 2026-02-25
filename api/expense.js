@@ -1,6 +1,6 @@
 async function routes(fastify, { _db: db }) {
 
-    fastify.get('/:db/data', async function (req, res) {
+    fastify.get('/exp/:db/data', async function (req, res) {
         try {
             const { db } = req.params;
             const all = await db.collection(db).find({}).toArray();
@@ -10,7 +10,7 @@ async function routes(fastify, { _db: db }) {
         }
     });
 
-    fastify.put('/:db/data', async function (req, res) {
+    fastify.put('/exp/:db/data', async function (req, res) {
         try {
             const { db } = req.params;
             const { cycle, budget } = req.body;
