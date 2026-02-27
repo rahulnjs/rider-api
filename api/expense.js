@@ -3,7 +3,7 @@ async function routes(fastify, { _db: db }) {
     fastify.get('/exp/:col/data/:date', async function (req, res) {
         try {
             const { col, date } = req.params;
-            const all = await db.collection(col).find({ cycle: date }).toArray();
+            const all = await db.collection(col).find({ cycle: date.replaceAll("-", "/") }).toArray();
             return res.send(all || []);
         } catch (err) {
             res.code(500).send({ error: 'Failed to fetch data', details: err.message });
